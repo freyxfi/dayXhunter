@@ -1,0 +1,51 @@
+#,Report ID & Program,Link,What Happened,How to Reproduce/Find It
+1,1539426 - UPS VDP,https://hackerone.com/reports/1539426,"Unauthenticated access to support admin panel, viewing all site requests due to missing checks on admin endpoints.",Intercept support form submissions with Burp; modify URLs to /admin paths. Fuzz directories like /admin or /support for exposed panels.
+2,833735 - Acronis,https://hackerone.com/reports/833735,"Unauthenticated panel access by appending .html to endpoints, bypassing auth.",Append .html/.php to restricted URLs via curl/Postman. Test for rendering leaks in auth-gated pages.
+3,1987011 - Mozilla,https://hackerone.com/reports/1987011,Admin hub settings disabled object creation/movement globally via misconfigured deny permissions.,"As low-priv user, edit /settings toggles (e.g., via dev tools) for permissions. Swap hub IDs in URLs for cross-impact."
+4,921717 - Nextcloud,https://hackerone.com/reports/921717,Unauthenticated view of any message via /@{username}/{token} due to unchecked displayPost function.,Guess tokens from shares; GET unauth to activity endpoints. Review app source (GitHub) for vulnerable functions.
+5,2516250 - HackerOne,https://hackerone.com/reports/2516250,Unauthorized closure of reports as duplicates across programs via missing ownership validation.,"As low-priv, POST to closure APIs with foreign IDs. Inspect GraphQL for weak ID binding."
+6,1903322 - Shipt,https://hackerone.com/reports/1903322,Arbitrary products added to others' pre-placement orders due to unchecked cart ownership.,Intercept order mods; swap IDs to victim carts. Test pre-fulfillment APIs for loose validations.
+7,1493007 - U.S. Dept of Defense,https://hackerone.com/reports/1493007,IDOR on form submissions exposed user access requests; viewed/filled others' forms.,"Submit test request, note ID; tamper /request/{id} params. Fuzz sequential IDs on forms."
+8,1672614 - Stripe,https://hackerone.com/reports/1672614,Member-permission users viewed activated linked accounts and connected new carts.,Query linkage APIs as member; check for extra data. Tamper permission headers for role simulation.
+9,2374730 - Bykea,https://hackerone.com/reports/2374730,"IDOR in bookings API leaked users' details, bids, configs via ID swaps.",GET /api/v1/bookings/{id} with victim ID/token. Proxy app traffic to swap params.
+10,1323406 - Affirm,https://hackerone.com/reports/1323406,IDOR allowed viewing any user's order info by tampering order IDs in APIs.,Capture order creation; alter ID in GETs. Check for predictable/sequential IDs in responses.
+11,2483666 - HackerOne,https://hackerone.com/reports/2483666,IDOR on embedded forms exposed private program info (scopes) via UUID in GraphQL.,POST /graphql with foreign form UUIDs. Leak IDs from public embeds/errors.
+12,2586641 - U.S. Dept of Defense,https://hackerone.com/reports/2586641,IDOR exposed demographic details via /JOINOnline/Board/QuestionCard/ endpoints.,Tamper card/question IDs in base path as auth user. Brute numeric params for enumeration.
+13,2139190 - HackerOne,https://hackerone.com/reports/2139190,IDOR in GraphQL locked any public report via unchecked reportId mutation.,Mutate with arbitrary reportId (GraphQL playground). Extract IDs from public URLs.
+14,2524562 - WakaTime,https://hackerone.com/reports/2524562,IDOR viewed arbitrary order data by altering identifiers in user endpoints.,Tamper order/view params in dashboard APIs. Monitor network tab for exposed IDs.
+15,409237 - U.S. Dept of Defense,https://hackerone.com/reports/409237,"IDOR via email param swap accessed others' accounts, disclosing sensitive docs.",Swap 'email' in auth/account endpoints to valid victims. Guess emails from public leaks.
+16,2024284 - Glassdoor,https://hackerone.com/reports/2024284,IDOR exposed profile picture IDs in responses during uploads.,"Upload pic; inspect response IDs, request foreign ones. Check multipart leaks."
+17,156537 - Ubiquiti Inc.,https://hackerone.com/reports/156537,IDOR deleted data from any community account via user ID in deletion endpoints.,POST delete with victim user ID. Fuzz from forum profiles/sequential enum.
+18,2633771 - HackerOne,https://hackerone.com/reports/2633771,IDOR exposed internal object refs (DB IDs) via format leaks in storage.,Analyze/decode refs in responses; tamper for others. Regex payloads for patterns.
+19,796379 - Unspecified,https://hackerone.com/reports/796379,Insufficient registration controls allowed admin privilege escalation during signup.,"Tamper /register POST params (e.g., role=admin). Test for missing server-side validation."
+20,317332 - Vend VDP,https://hackerone.com/reports/317332,Low-priv users (Cashier) bypassed restrictions to add registers to outlets.,"As cashier, POST to add-register without perms. Review RBAC in API docs."
+21,491892 - Rocket.Chat,https://hackerone.com/reports/491892,"Non-admins uploaded/installed apps via ID-controlled app.json, activating arbitrary ones.",Upload ZIP with custom ID; POST install/activate. Inspect handlers for ID checks.
+22,837256 - WordPress,https://hackerone.com/reports/837256,BuddyPress allowed replying/deleting activities in unjoined public groups.,"As outsider, POST reply/delete to foreign group activity ID. Enum from feeds."
+23,2746709 - MTN Group,https://hackerone.com/reports/2746709,API in MyMTN app leaked transaction history via auth bypass.,GET /transactions/{id} unauth/wrong token. Hook mobile APIs with Frida for swaps.
+24,247225 - Unspecified,https://hackerone.com/reports/247225,Session duplication via improper API-KEY validation in password reset.,Intercept reset; reuse key for new session. Test key binding in reset flows.
+25,1609955 - Judge.me,https://hackerone.com/reports/1609955,Improper controls in AliExpress importer exposed all reviews via endpoint tampering.,"As admin, GET /reviews/{id} with foreign IDs. Fuzz review endpoints."
+26,262661 - HackerOne,https://hackerone.com/reports/262661,IDOR on feedback review created public feedback for non-submitting hackers.,"As team, POST feedback to foreign hacker IDs. Check public profile visibility."
+27,1966006 - Unikrn,https://hackerone.com/reports/1966006,IDOR enumerated users and leaked PII (emails/phones) via cashier endpoints.,Tamper ID in transaction-history APIs; inspect for leaks.
+28,Unspecified - Yelp,https://hackerone.com/reports/ (High-upvote IDOR editing CC),IDOR edited any user's credit cards and disclosed partial info.,POST update to /cards/{id} with victim ID; check ownership absence.
+29,Unspecified - Pornhub,https://hackerone.com/reports/ (High-upvote private video),IDOR accessed private videos via /api_android_v3/getUserVideos.,GET with foreign user/video ID; test mobile APIs.
+30,Unspecified - TikTok,https://hackerone.com/reports/ (High-upvote seller),IDOR accessed seller data via ID swaps in seller APIs.,Tamper seller_id in GETs; monitor cross-access.
+31,Unspecified - GitLab,https://hackerone.com/reports/ (High-upvote status check),IDOR leaked status check data for any instance.,POST to status API with arbitrary instance ID.
+32,663431 - HackerOne,https://hackerone.com/reports/663431,IDOR in bugs overview enumerated hackathon dates.,Query /bugs with foreign event IDs; check date fields.
+33,Unspecified - HackerOne,https://hackerone.com/reports/ (High-upvote cert delete),IDOR deleted any user's certs via CreateOrUpdateHackerCertification GraphQL.,Mutate with victim ID; no ownership check.
+34,Unspecified - HackerOne,https://hackerone.com/reports/ (High-upvote campaign),Unauthorized campaign deletion via object ref.,DELETE /campaigns/{id}; enum from lists.
+35,Unspecified - GitHub,https://hackerone.com/reports/ (High-upvote priv esc),Escalated to org owner via app IDOR.,Install app with tampered org ID; check role assignment.
+36,950881 - Automattic,https://hackerone.com/reports/950881,IDOR in email editing led to account takeover.,Change id param in /cms/reader/account requests to victim IDs.
+37,227522 - Radancy,https://hackerone.com/reports/227522,"IDOR edited courses of other users, removing them from accounts.",Tamper course IDs in /instellingen/gegevens/ edits.
+38,152407 - Dashlane,https://hackerone.com/reports/152407,Missing access control enumerated emails via token endpoint.,POST emails to token endpoint; check for multi-account leaks.
+39,751577 - Nord Security,https://hackerone.com/reports/751577,IDOR accessed payments/orders without auth.,POST /api/v1/orders with arbitrary IDs.
+40,544329 - X / xAI,https://hackerone.com/reports/544329,IDOR leaked order statistics in MoPub.,Query /web-client/api/orders/stats/query with foreign IDs.
+41,2962056 - Autodesk,https://hackerone.com/reports/2962056,IDOR edited another user's profile photo via id param.,Tamper id in user profile update requests.
+42,2207248 - Shopify,https://hackerone.com/reports/2207248,IDOR on GraphQL BillingInvoice accessed other shops' info.,Query BillingDocumentDownload/BillDetails with foreign IDs.
+43,2218334 - HackerOne,https://hackerone.com/reports/2218334,IDOR in unreleased Copilot destroyed any LLM conversation.,Mutate DestroyLlmConversation with arbitrary IDs.
+44,2487889 - HackerOne,https://hackerone.com/reports/2487889,IDOR accessed private reports via /bugs.json POST.,POST to /bugs.json with foreign organization_id/report IDs.
+45,Unspecified - Semrush,https://hackerone.com/reports/ (High-upvote info disc),IDOR allowed information disclosure.,Tamper object refs in API queries for unauthorized data.
+46,Unspecified - Azbuka Vkusa,https://hackerone.com/reports/ (High-upvote delivery),IDOR disclosed other users' delivery addresses.,Swap user IDs in address endpoints.
+47,Unspecified - Eternal,https://hackerone.com/reports/ (High-upvote merchant),Unauthorized merchant updates via /php/merchant_details.php IDOR.,POST with foreign merchant IDs.
+48,Unspecified - Legal Robot,https://hackerone.com/reports/ (High-upvote reset),Password reset bypassed controls for account takeover.,Tamper reset token/user params.
+49,Unspecified - Ubiquiti Inc.,https://hackerone.com/reports/ (High-upvote config),Broken config access on UniFi Video via IDOR.,Tamper config IDs in video server APIs.
+50,Unspecified - Dust,https://hackerone.com/reports/ (High-upvote escalation),Stored XSS in uploads led to priv escalation and workspace takeover.,Upload malicious payloads as low-priv; chain with access flaws.

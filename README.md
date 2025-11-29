@@ -13,5 +13,6 @@ do it or not, time will pass anyway
 |----------|--------|-------------|-------------|
 | **0x00** | [0x000](./0x000) | SAML + Selecting the target to live on | 0 hrs |
 | **0x001** | [0x001](./0x001) | Find cool Bypass in The application (race condition) | 1 hrs |
+| **0x002** | [0x002](./0x002) | Reports reading | 30 min |
 
 </div>
